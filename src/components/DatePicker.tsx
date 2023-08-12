@@ -69,11 +69,15 @@ const DatePicker: FunctionComponent<DatePickerProps> = (props: DatePickerProps) 
 
                         <div>
                             <button onClick={previousMonth}>
-                                <SVG src={LeftChevron} />
+                                {/* <SVG src={LeftChevron} /> */}
+
+                                {'<'}
                             </button>
 
                             <button onClick={nextMonth}>
-                                <SVG src={RightChevron} />
+                                {/* <SVG src={RightChevron} /> */}
+
+                                {'>'}
                             </button>
                         </div>
                     </div>

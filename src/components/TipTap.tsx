@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import SVG from 'react-inlinesvg';
+// import SVG from 'react-inlinesvg';
 
 import BoldIcon from '../assets/icons/bold-02.svg';
 import UnderlineIcon from '../assets/icons/underline-02.svg';
@@ -35,9 +35,10 @@ const Tiptap: FunctionComponent = () => {
                 className='text-secondary'
                 onClick={() => editor.chain().focus().toggleBold().run()}
             >
-                <SVG
+                {/* <SVG
                     src={BoldIcon}
-                />
+                /> */}
+                B
             </button>
 
             <EditorContent editor={editor} />

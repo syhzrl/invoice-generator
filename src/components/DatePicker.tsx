@@ -38,7 +38,6 @@ const DatePicker: FunctionComponent<DatePickerProps> = (props: DatePickerProps) 
 
     const today = startOfToday();
 
-    // const [selectedDay, setSelectedDay] = useState(today);
     const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM yyyy'));
     const firstDayCurrentMonth = parse(currentMonth, 'MMM yyyy', new Date());
 
@@ -59,7 +58,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = (props: DatePickerProps) 
 
     return (
         <Popover className='relative'>
-            <Popover.Button className='border border-secondary p-2 rounded-md outline-none'>
+            <Popover.Button className='border border-secondary p-2 rounded-md outline-none px-4'>
                 {format(selectedDate, 'dd MMM, yyyy')}
             </Popover.Button>
 
@@ -107,7 +106,6 @@ const DatePicker: FunctionComponent<DatePickerProps> = (props: DatePickerProps) 
                                         {format(day, 'd')}
                                     </time>
                                 </button>
-
                             );
                         })}
                     </div>

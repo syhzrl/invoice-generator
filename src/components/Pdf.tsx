@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import Inter from '../assets/fonts/Inter-Regular.ttf';
 import InterBold from '../assets/fonts/Inter-Bold.ttf';
 import { IInvoice } from '../entities/invoice';
+import PdfTable from './PdfTable';
 
 Font.register({ family: 'Inter', src: Inter });
 Font.register({ family: 'InterBold', src: InterBold });
@@ -58,7 +59,7 @@ interface PdfDocumentProps {
 const PdfDocument: FunctionComponent<PdfDocumentProps> = (props: PdfDocumentProps) => {
     const { data } = props;
 
-    const { issuedDate, dueDate, from, billedTo } = data;
+    const { issuedDate, dueDate, from, billedTo, tableData, subTotal, tax, total } = data;
 
     return (
         <Document>
@@ -139,6 +140,13 @@ const PdfDocument: FunctionComponent<PdfDocumentProps> = (props: PdfDocumentProp
                         </Text>
                     </View>
                 </View>
+
+                <PdfTable
+                    tableData={tableData}
+                    subTotal={subTotal}
+                    tax={tax}
+                    total={total}
+                />
             </Page>
         </Document>
     );

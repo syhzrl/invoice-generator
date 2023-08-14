@@ -7,6 +7,10 @@ export interface IInvoice {
     subTotal: number;
     tax: number;
     total: number;
+    extraDesc: string;
+    accountName: string;
+    bankName: string;
+    accountNo: string;
 }
 
 export interface IInvoiceTable {

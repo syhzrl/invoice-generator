@@ -1,10 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-// import SVG from 'react-inlinesvg';
-
-import BoldIcon from '../assets/icons/bold-02.svg';
-import UnderlineIcon from '../assets/icons/underline-02.svg';
 
 const Tiptap: FunctionComponent = () => {
     const editor = useEditor({
@@ -12,15 +8,15 @@ const Tiptap: FunctionComponent = () => {
             StarterKit.configure({
                 paragraph: {
                     HTMLAttributes: {
-                        class: 'text-pink-700',
+                        class: 'text-black',
                     },
                 },
             }),
         ],
-        content: '<p>Hello World!</p> <p>Hello World!</p>',
+        content: '<h1>Hello World!</h1> <p>Hello World!</p>',
         editorProps: {
             attributes: {
-                class: 'focus:outline-none border-t border-t-secondary',
+                class: 'focus:outline-none border-t border-t-secondary py-2',
             },
         },
     });
@@ -30,16 +26,15 @@ const Tiptap: FunctionComponent = () => {
     }
 
     return (
-        <div className='border border-secondary rounded-md p-2'>
-            <button
-                className='text-secondary'
-                onClick={() => editor.chain().focus().toggleBold().run()}
-            >
-                {/* <SVG
-                    src={BoldIcon}
-                /> */}
-                B
-            </button>
+        <div className='border border-secondary rounded-md p-2 flex flex-col gap-2'>
+            <div className='w-full justify-start flex'>
+                <button
+                    className='text-secondary'
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                >
+                    B
+                </button>
+            </div>
 
             <EditorContent editor={editor} />
         </div>

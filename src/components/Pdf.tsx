@@ -13,8 +13,9 @@ Font.register({ family: 'InterBold', src: InterBold });
 // Create styles
 const styles = StyleSheet.create({
     page: {
+        display: 'flex',
         flexDirection: 'column',
-        padding: 48,
+        padding: 30,
         gap: 18,
         fontFamily: 'Inter',
     },
@@ -59,7 +60,18 @@ interface PdfDocumentProps {
 const PdfDocument: FunctionComponent<PdfDocumentProps> = (props: PdfDocumentProps) => {
     const { data } = props;
 
-    const { issuedDate, dueDate, from, billedTo, tableData, subTotal, tax, total } = data;
+    const { issuedDate,
+        dueDate,
+        from,
+        billedTo,
+        tableData,
+        subTotal,
+        tax,
+        total,
+        extraDesc,
+        accountName,
+        bankName,
+        accountNo } = data;
 
     return (
         <Document>
@@ -147,6 +159,143 @@ const PdfDocument: FunctionComponent<PdfDocumentProps> = (props: PdfDocumentProp
                     tax={tax}
                     total={total}
                 />
+
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        flex: '1',
+                    }}
+                >
+                    {extraDesc && (
+                        <View
+                            style={{
+                                width: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                borderTop: '1px solid #D7DAE0',
+                                paddingTop: 12,
+                                paddingBottom: 12,
+                                gap: 12,
+                            }}
+                        >
+                            <Text style={styles.topRowColumnTitle}>
+                                Extra Notes
+                            </Text>
+
+                            <Text style={styles.topRowColumnDesc}>
+                                {extraDesc}
+                            </Text>
+                        </View>
+                    )}
+
+                    <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: '100%',
+                            gap: 12,
+                            flex: 1,
+                            justifyContent: 'flex-end',
+                        }}
+                    >
+                        <View
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                width: '100%',
+                            }}
+                        >
+                            <Text style={styles.topRowColumnDesc}>
+                                PAYMENT INFO
+                            </Text>
+
+                            <View
+                                style={{
+                                    height: '1px',
+                                    borderBottom: '1px solid #D7DAE0',
+                                    width: '80%',
+                                }}
+                            />
+                        </View>
+
+                        <View
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                width: '100%',
+                            }}
+                        >
+                            <View
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '40%',
+                                    gap: 3,
+                                }}
+                            >
+                                <Text style={styles.topRowColumnTitle}>
+                                    ACCOUNT NAME
+                                </Text>
+
+                                <Text style={styles.topRowColumnDesc}>
+                                    {accountName}
+                                </Text>
+                            </View>
+
+                            <View
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    width: '40%',
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        width: '50%',
+                                        borderRight: '1px solid #D7DAE0',
+                                        paddingRight: 12,
+                                        gap: 3,
+                                    }}
+                                >
+                                    <Text style={styles.topRowColumnTitle}>
+                                        BANK NAME
+                                    </Text>
+
+                                    <Text style={styles.topRowColumnDesc}>
+                                        {bankName}
+                                    </Text>
+                                </View>
+
+                                <View
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        width: '50%',
+                                        paddingLeft: 12,
+                                        gap: 3,
+                                    }}
+                                >
+                                    <Text style={styles.topRowColumnTitle}>
+                                        ACCOUNT #
+                                    </Text>
+
+                                    <Text style={styles.topRowColumnDesc}>
+                                        {accountNo}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
             </Page>
         </Document>
     );

@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Popover } from '@headlessui/react';
-import SVG from 'react-inlinesvg';
 import {
     add,
     eachDayOfInterval,
@@ -15,8 +14,8 @@ import {
     startOfWeek,
 } from 'date-fns';
 
-import LeftChevron from '../assets/icons/chevron-left.svg';
-import RightChevron from '../assets/icons/chevron-right.svg';
+import ChevronLeft from '../assets/icons/ChevronLeft';
+import ChevronRight from '../assets/icons/ChevronRight';
 
 const colStartClasses = [
     '',
@@ -69,15 +68,11 @@ const DatePicker: FunctionComponent<DatePickerProps> = (props: DatePickerProps) 
 
                         <div>
                             <button onClick={previousMonth}>
-                                {/* <SVG src={LeftChevron} /> */}
-
-                                {'<'}
+                                <ChevronLeft />
                             </button>
 
                             <button onClick={nextMonth}>
-                                {/* <SVG src={RightChevron} /> */}
-
-                                {'>'}
+                                <ChevronRight />
                             </button>
                         </div>
                     </div>

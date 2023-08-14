@@ -7,6 +7,7 @@ import { IInvoiceTable } from './entities/invoice';
 import ViewPdfModal from './components/ViewPdfModal';
 import DatePicker from './components/DatePicker';
 import TableRow from './components/TableRow';
+import Tiptap from './components/TipTap';
 
 const App: FunctionComponent = () => {
     const today = startOfToday();
@@ -21,12 +22,18 @@ const App: FunctionComponent = () => {
 
     const [tax, setTax] = useState(0);
 
+    const [extraDesc, setExtraDesc] = useState('');
+
+    const [accountName, setAccountName] = useState('');
+    const [bankName, setBankName] = useState('');
+    const [accountNo, setAccountNo] = useState('');
+
     const [tableData, setTableData] = useState<IInvoiceTable[]>([{
         id: nanoid(),
-        title: 'test!',
-        description: 'test!',
-        quantity: 20,
-        rate: 20,
+        title: '',
+        description: '',
+        quantity: 0,
+        rate: 0,
     }]);
 
     const onChangeTableDataHandler = (rowId: string, key: string, inputData: string | number) => {
@@ -63,12 +70,12 @@ const App: FunctionComponent = () => {
             preTaxTotal += (item.rate * item.quantity);
         });
 
-        return preTaxTotal;
+        return Number(preTaxTotal.toFixed(2));
     };
 
     const calculateAfterTaxTotal = () => {
         if (tax) {
-            return calculatePreTaxTotal() * tax;
+            return Number((calculatePreTaxTotal() * tax).toFixed(2));
         }
 
         return calculatePreTaxTotal();
@@ -80,7 +87,7 @@ const App: FunctionComponent = () => {
                 INVOICE GENERATOR
             </h1>
 
-            <div className='w-[80%] h-full bg-white text-black p-12 rounded-lg flex flex-col gap-6'>
+            <div className='w-[80%] h-full bg-white text-black p-10 rounded-lg flex flex-col gap-6'>
                 <div>
                     <h2 className='text-4xl font-bold'>INVOICE</h2>
 
@@ -112,7 +119,7 @@ const App: FunctionComponent = () => {
                         </p>
 
                         <textarea
-                            className='border border-secondary rounded-md bg-[#D7DAE0] p-2 focus:outline-none'
+                            className='border border-secondary rounded-md text-[#5E6470] p-2 focus:outline-none h-full'
                             placeholder='Clients Address Here'
                             value={billedTo}
                             onChange={(e) => setBilledTo(e.target.value)}
@@ -125,7 +132,7 @@ const App: FunctionComponent = () => {
                         </p>
 
                         <textarea
-                            className='border border-secondary rounded-md bg-[#D7DAE0] p-2 focus:outline-none'
+                            className='border border-secondary rounded-md text-[#5E6470] p-2 focus:outline-none h-full'
                             placeholder='Your Address Here'
                             value={from}
                             onChange={(e) => setFrom(e.target.value)}
@@ -230,6 +237,74 @@ const App: FunctionComponent = () => {
                         </p>
                     </div>
                 </div>
+
+                <div className='flex flex-col w-full border-t border-t-light py-4 gap-4'>
+                    <p className='font-bold text-xl'>
+                        Extra Descriptions
+                    </p>
+
+                    <textarea
+                        className='border border-secondary rounded-md text-[#5E6470] p-2 focus:outline-none h-full'
+                        placeholder='...'
+                        value={extraDesc}
+                        onChange={(e) => setExtraDesc(e.target.value)}
+                    />
+                </div>
+
+                <div className='flex w-full items-center justify-between'>
+                    <p className='text-[#5E6470]'>PAYMENT INFO</p>
+
+                    <div className='h-[1px] border border-light w-[85%]' />
+                </div>
+
+                <div className='flex w-full items-center justify-between'>
+                    <div className='flex flex-col w-[40%]'>
+                        <p className='text-[#5E6470] font-bold'>
+                            ACCOUNT NAME
+                        </p>
+
+                        <input
+                            className='border border-secondary rounded-md p-1 px-2 w-full focus:outline-none h-fit'
+                            placeholder='Account Name'
+                            value={accountName}
+                            onChange={(e) => {
+                                setAccountName(e.target.value);
+                            }}
+                        />
+                    </div>
+
+                    <div className='flex w-[40%] items-center'>
+                        <div className='flex flex-col w-1/2 border-r border-r-light pr-2'>
+                            <p className='text-[#5E6470] font-bold'>
+                                BANK NAME
+                            </p>
+
+                            <input
+                                className='border border-secondary rounded-md p-1 px-2 w-full focus:outline-none h-fit'
+                                placeholder='Bank Name'
+                                value={bankName}
+                                onChange={(e) => {
+                                    setBankName(e.target.value);
+                                }}
+                            />
+                        </div>
+
+                        <div className='flex flex-col w-1/2 pl-2'>
+                            <p className='text-[#5E6470] font-bold'>
+                                ACCOUNT #
+                            </p>
+
+                            <input
+                                className='border border-secondary rounded-md p-1 px-2 w-full focus:outline-none h-fit'
+                                placeholder='Account Num'
+                                value={accountNo}
+                                onChange={(e) => {
+                                    setAccountNo(e.target.value);
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className='w-[80%] flex justify-end'>
@@ -253,6 +328,10 @@ const App: FunctionComponent = () => {
                     subTotal: calculatePreTaxTotal(),
                     tax,
                     total: calculateAfterTaxTotal(),
+                    extraDesc,
+                    accountName,
+                    bankName,
+                    accountNo,
                 }}
             />
         </div>
